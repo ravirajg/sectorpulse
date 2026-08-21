@@ -2,13 +2,8 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/banner_dark.svg">
-  <img src="docs/images/banner_light.svg" alt="SectorPulse" height="170">
+  <img src="docs/images/banner_light.svg" alt="SectorPulse — resilient file recovery from damaged Windows drives" height="170">
 </picture>
-
-<p>
-  <img src="docs/images/icon.svg" alt="" height="28" />
-  &nbsp;<strong>SectorPulse — resilient file recovery from damaged Windows drives</strong>
-</p>
 
 
 
