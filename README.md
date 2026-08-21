@@ -2,7 +2,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/banner_dark.svg">
-  <img src="docs/images/banner_light.svg" alt="SectorPulse — resilient file recovery from damaged Windows drives" height="170">
+  <img src="docs/images/banner_light.svg" alt="SectorPulse" height="170">
 </picture>
 
 <p>
@@ -15,22 +15,30 @@
 
 </div>
 
-[![Windows](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D4.svg?logo=windows&logoColor=white)](#-requirements)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-3776AB.svg?logo=python&logoColor=white)](#-quick-start)
-[![UI](https://img.shields.io/badge/UI-CustomTkinter-2EE6A6.svg)](#-features)
-[![NTFS](https://img.shields.io/badge/raw%20NTFS-%5C%5C.%5CX%3A-F0B429.svg)](#-how-it-works)
-[![Repair](https://img.shields.io/badge/repair-PDF%20%2B%20video-FF5C7A.svg)](#-features)
+[![Windows](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D4.svg?logo=windows&logoColor=white)](#requirements)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-3776AB.svg?logo=python&logoColor=white)](#quick-start)
+[![UI](https://img.shields.io/badge/UI-CustomTkinter-2EE6A6.svg)](#features)
+[![NTFS](https://img.shields.io/badge/raw%20NTFS-%5C%5C.%5CX%3A-F0B429.svg)](#how-it-works)
+[![Repair](https://img.shields.io/badge/repair-PDF%20%2B%20video-FF5C7A.svg)](#features)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 
-**A Windows recovery console that keeps going when Explorer freezes — maps damaged USB volumes, skips bad sectors, and salvages what it can.**
+<br>
 
-Plug the dying drive in over USB. SectorPulse detects the letter (even when size queries fail), builds a file map via Win32 or raw NTFS MFT parsing, then copies selected files in small chunks with retries and zero-padding. Recovered PDFs and videos get a best-effort repair pass. Every attempt is journaled so you can resume and retry failures later.
+## <img src="docs/images/icon_why.svg" height="28" alt="" /> Why this exists
+
+Recently one of my hard drives crashed — the one with years of family photos, PDFs, and videos. I bought professional recovery software to fix it. It *did* restore a ton of files… but I couldn’t open any of them. Photos wouldn’t load, PDFs were broken, videos just sat there useless.
+
+So I built **SectorPulse**. It doesn’t stop when a sector is bad — it skips the hole, keeps the rest of the file, and then tries to repair recovered PDFs and videos so they actually open again. I got my files back. I’m sharing this in case someone else hits the same wall.
+
+<br>
+
+**What it does in practice:** plug the dying drive in over USB. SectorPulse detects the volume (even when Windows size queries fail), maps folders via Win32 or raw NTFS, copies selected files in small chunks with retries and zero-padding past bad sectors, then best-effort repairs PDFs/videos and journals every attempt so you can resume later.
 
 <img src="docs/images/divider.svg" width="100%" alt="">
 
 ## <img src="docs/images/icon_toc.svg" height="22" alt="" /> Table of Contents
 
-- [<img src="docs/images/icon_why.svg" height="16" alt="" /> Why This Exists](#why-this-exists)
+- [<img src="docs/images/icon_why.svg" height="16" alt="" /> Why this exists](#why-this-exists)
 - [<img src="docs/images/icon_how.svg" height="16" alt="" /> How It Works](#how-it-works)
 - [<img src="docs/images/icon_features.svg" height="16" alt="" /> Features](#features)
 - [<img src="docs/images/icon_can.svg" height="16" alt="" /> What It Can Do](#what-it-can-do)
@@ -47,17 +55,14 @@ Plug the dying drive in over USB. SectorPulse detects the letter (even when size
 
 <br>
 
-## <img src="docs/images/icon_why.svg" height="28" alt="" /> Why This Exists
-
-Dying disks don't fail politely. Explorer hangs on one bad file, `robocopy` aborts a tree, and Windows keeps retrying the same unreadable sector until the enclosure drops offline. SectorPulse was built for that ugliness: **USB-attached NTFS volumes with bad sectors, crashy metadata, and files that hang forever on a normal copy**.
-
-The goal is simple — get as many bytes as possible onto a healthy disk, keep a paper trail of what failed, and make the survivors openable when we can.
-
-<br>
-
 ## <img src="docs/images/icon_how.svg" height="28" alt="" /> How It Works
 
-<img src="docs/images/architecture.svg" alt="SectorPulse architecture: detect, scan, restore, repair + journal — with Win32 and raw NTFS paths" width="100%">
+<p>
+  <img src="docs/images/icon_architecture.svg" height="22" alt="" />
+  &nbsp;<strong>Architecture — detect · scan · restore · repair + journal (Win32 + raw NTFS)</strong>
+</p>
+
+<img src="docs/images/architecture.svg" alt="" width="100%">
 
 SectorPulse is a four-stage pipeline with a dual scan/restore path:
 
@@ -81,7 +86,7 @@ Lists Removable and Fixed USB volumes as they appear. Damaged volumes that throw
 ### <img src="docs/images/icon_map.svg" height="22" alt="" /> Error-tolerant file map
 Continues after `scandir` / `stat` / probe failures. Each node is tagged `ok` · `partial` · `unreadable`. Lazy tree expand keeps large maps snappy. Cancel mid-scan anytime.
 
-<img src="docs/images/feature_status.svg" alt="Status legend: OK, PARTIAL, BAD, RAW NTFS" width="100%">
+<img src="docs/images/feature_status.svg" alt="" width="100%">
 
 ### <img src="docs/images/icon_dual.svg" height="22" alt="" /> Dual recovery paths
 | Mode | When | How |
@@ -95,14 +100,26 @@ On repeated I/O errors, SectorPulse pads a hole and keeps going instead of abort
 ### <img src="docs/images/icon_hang.svg" height="22" alt="" /> Hang protection
 Per-file timeouts (roughly 60–900s by size). Timed-out destinations are removed and logged as `timeout` so a later retry starts clean.
 
-### <img src="docs/images/icon_features.svg" height="22" alt="" /> PDF & video repair
-<img src="docs/images/feature_repair.svg" alt="PDF carve + pypdf rewrite; video ffmpeg remux and AVI idx1 rebuild" width="100%">
+### <img src="docs/images/icon_repair.svg" height="22" alt="" /> PDF & video repair
+
+<p>
+  <img src="docs/images/icon_repair.svg" height="20" alt="" />
+  &nbsp;<strong>PDF carve + pypdf rewrite · video ffmpeg remux / AVI idx1 rebuild</strong>
+</p>
+
+<img src="docs/images/feature_repair.svg" alt="" width="100%">
 
 - **PDF** — carve `%PDF`…`%%EOF`, then timed `pypdf` rewrite in a child process (skip unreadable pages; hard timeout ~12s).
 - **Video** — prefer `ffmpeg` remux (`-c copy`, `+faststart` for MP4/MOV); pure-Python **AVI `idx1` rebuild** if ffmpeg is unavailable. Covers `.mp4` `.m4v` `.mov` `.mkv` `.avi` `.wmv` `.webm` `.mpg` `.mpeg` `.flv` `.ts` `.m2ts` `.3gp`.
 
-### <img src="docs/images/icon_structure.svg" height="22" alt="" /> Resume journals
-<img src="docs/images/feature_journal.svg" alt="SectorPulse_logs journal files" width="100%">
+### <img src="docs/images/icon_journal.svg" height="22" alt="" /> Resume journals
+
+<p>
+  <img src="docs/images/icon_journal.svg" height="20" alt="" />
+  &nbsp;<strong>SectorPulse_logs — resume &amp; retry journals</strong>
+</p>
+
+<img src="docs/images/feature_journal.svg" alt="" width="100%">
 
 Skip already-restored files (matching size). Force-retry broken PDFs/videos left from earlier partial runs. **Retry Failed from Log…** reloads unresolved `failed` / `timeout` / `partial` entries.
 
