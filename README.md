@@ -7,6 +7,13 @@
 
 <p><em>Resilient file recovery from damaged Windows drives</em></p>
 
+<p>
+  <img src="https://img.shields.io/badge/platform-Windows%20only-0078D4.svg?logo=windows&logoColor=white" alt="Windows only" />
+  &nbsp;<img src="https://img.shields.io/badge/macOS-coming%20soon-8B9BB0.svg?logo=apple&logoColor=white" alt="macOS coming soon" />
+</p>
+
+<p><strong>This version only runs on Windows.</strong> macOS support is coming very soon.</p>
+
 
 
 
@@ -145,7 +152,7 @@ CustomTkinter UI — graphite + signal teal. Drive list, file map with health co
 ## <img src="docs/images/icon_cannot.svg" height="28" alt="" /> What It Cannot Do
 
 - <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Not a full disk imager** — selected files/folders, not a forensic `dd` of the whole device
-- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Not for non-Windows hosts** — drive letters + WinAPI
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Not for macOS / Linux yet** — this release is Windows-only (drive letters + WinAPI); macOS support is coming very soon
 - <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Not for the system drive as a target** — intentionally ignored
 - <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Not magic undelete** for fully overwritten data
 - <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Limited / no support** for exFAT, FAT32, ReFS, locked BitLocker, APFS, ext4 — raw path is **NTFS-only**
@@ -162,7 +169,7 @@ CustomTkinter UI — graphite + signal teal. Drive list, file map with health co
 
 | Requirement | Why |
 |---|---|
-| **Windows 10 / 11** | Drive letters, WinAPI, `\\.\X:` raw volumes |
+| **Windows 10 / 11** | **Required today** — drive letters, WinAPI, `\\.\X:` raw volumes (macOS coming soon) |
 | **Python 3.10+** | Runtime |
 | **Git** (optional) | To clone the repo |
 | **Administrator** (often) | Raw volume open / raw delete on dying NTFS |
