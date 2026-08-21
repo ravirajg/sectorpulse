@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="420" viewBox="0 0 1100 420" role="img" aria-label="SectorPulse architecture">
+  <defs>
+    <linearGradient id="card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#151C27"/>
+      <stop offset="100%" stop-color="#121821"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#5C6B7F"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="420" rx="16" fill="#0B0F14"/>
+  <text x="36" y="42" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" letter-spacing="2">HOW SECTORPULSE MOVES BYTES</text>
+
+  <!-- boxes -->
+  <rect x="36" y="70" width="200" height="88" rx="12" fill="url(#card)" stroke="#2EE6A6" stroke-width="2"/>
+  <text x="56" y="108" fill="#2EE6A6" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="700">1 · Detect</text>
+  <text x="56" y="132" fill="#E8EEF7" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">USB / volume watch</text>
+  <text x="56" y="150" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12">skips system drive</text>
+
+  <rect x="280" y="70" width="200" height="88" rx="12" fill="url(#card)" stroke="#4DA3FF" stroke-width="2"/>
+  <text x="300" y="108" fill="#4DA3FF" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="700">2 · Scan</text>
+  <text x="300" y="132" fill="#E8EEF7" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Win32 or raw MFT</text>
+  <text x="300" y="150" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12">survives I/O errors</text>
+
+  <rect x="524" y="70" width="200" height="88" rx="12" fill="url(#card)" stroke="#F0B429" stroke-width="2"/>
+  <text x="544" y="108" fill="#F0B429" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="700">3 · Restore</text>
+  <text x="544" y="132" fill="#E8EEF7" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">chunk · retry · pad</text>
+  <text x="544" y="150" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12">per-file timeouts</text>
+
+  <rect x="768" y="70" width="280" height="88" rx="12" fill="url(#card)" stroke="#FF5C7A" stroke-width="2"/>
+  <text x="788" y="108" fill="#FF5C7A" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="700">4 · Repair + Journal</text>
+  <text x="788" y="132" fill="#E8EEF7" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">PDF / video salvage</text>
+  <text x="788" y="150" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12">resume &amp; retry logs</text>
+
+  <line x1="236" y1="114" x2="280" y2="114" stroke="#5C6B7F" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="480" y1="114" x2="524" y2="114" stroke="#5C6B7F" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="724" y1="114" x2="768" y2="114" stroke="#5C6B7F" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- dual path -->
+  <rect x="36" y="200" width="500" height="180" rx="14" fill="#121821" stroke="#243041"/>
+  <text x="56" y="236" fill="#4DA3FF" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" font-weight="700">PATH A  Win32 filesystem</text>
+  <text x="56" y="264" fill="#E8EEF7" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">When the volume still lists folders</text>
+  <text x="56" y="292" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">64 KiB reads · up to 4 retries · zero-fill bad chunks</text>
+  <text x="56" y="320" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">First-bytes probe tags partial / unreadable files</text>
+  <text x="56" y="348" fill="#5C6B7F" font-family="Consolas, monospace" font-size="12">app/core/scanner.py · recovery.py</text>
+
+  <rect x="560" y="200" width="488" height="180" rx="14" fill="#121821" stroke="#243041"/>
+  <text x="580" y="236" fill="#2EE6A6" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" font-weight="700">PATH B  Raw NTFS (\\.\X:)</text>
+  <text x="580" y="264" fill="#E8EEF7" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">When Explorer / scandir already fails</text>
+  <text x="580" y="292" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Boot sector ’ $MFT ’ data runs ’ sector fallback</text>
+  <text x="580" y="320" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Orphans land under _orphaned · Admin often needed</text>
+  <text x="580" y="348" fill="#5C6B7F" font-family="Consolas, monospace" font-size="12">app/core/ntfs_raw.py</text>
+</svg>

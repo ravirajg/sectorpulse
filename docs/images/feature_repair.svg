@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="240" viewBox="0 0 1100 240">
+  <rect width="1100" height="240" rx="14" fill="#0B0F14"/>
+  <text x="36" y="40" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" letter-spacing="2">POST-RECOVERY REPAIR</text>
+
+  <rect x="36" y="60" width="500" height="150" rx="12" fill="#121821" stroke="#FF5C7A"/>
+  <text x="56" y="96" fill="#FF5C7A" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="700">PDF</text>
+  <text x="56" y="126" fill="#E8EEF7" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14">Carve %PDF & %%EOF</text>
+  <text x="56" y="152" fill="#E8EEF7" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14">Timed pypdf rewrite (skip bad pages)</text>
+  <text x="56" y="178" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Process timeout so corrupt streams cannot hang forever</text>
+
+  <rect x="560" y="60" width="500" height="150" rx="12" fill="#121821" stroke="#4DA3FF"/>
+  <text x="580" y="96" fill="#4DA3FF" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="700">Video</text>
+  <text x="580" y="126" fill="#E8EEF7" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14">ffmpeg remux (-c copy, +faststart)</text>
+  <text x="580" y="152" fill="#E8EEF7" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14">Pure-Python AVI idx1 rebuild fallback</text>
+  <text x="580" y="178" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">mp4 · mkv · avi · mov · wmv · webm · ts · &</text>
+</svg>

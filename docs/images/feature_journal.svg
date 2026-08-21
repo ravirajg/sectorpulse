@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="220" viewBox="0 0 1100 220">
+  <rect width="1100" height="220" rx="14" fill="#0B0F14"/>
+  <text x="36" y="40" fill="#8B9BB0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" letter-spacing="2">RECOVERY JOURNAL · destination/SectorPulse_logs/</text>
+  <g font-family="Consolas, monospace" font-size="14">
+    <rect x="36" y="60" width="500" height="44" rx="8" fill="#121821" stroke="#243041"/>
+    <text x="52" y="88" fill="#2EE6A6">recovery_all.jsonl</text>
+    <text x="280" y="88" fill="#8B9BB0">every attempt</text>
+    <rect x="560" y="60" width="500" height="44" rx="8" fill="#121821" stroke="#243041"/>
+    <text x="576" y="88" fill="#FF5C7A">recovery_failed.jsonl</text>
+    <text x="820" y="88" fill="#8B9BB0">retry queue</text>
+    <rect x="36" y="120" width="500" height="44" rx="8" fill="#121821" stroke="#243041"/>
+    <text x="52" y="148" fill="#F0B429">recovery_failed.txt</text>
+    <text x="280" y="148" fill="#8B9BB0">human readable</text>
+    <rect x="560" y="120" width="500" height="44" rx="8" fill="#121821" stroke="#243041"/>
+    <text x="576" y="148" fill="#4DA3FF">recovery_processed.txt</text>
+    <text x="820" y="148" fill="#8B9BB0">OK / skip / partial</text>
+  </g>
+  <text x="36" y="198" fill="#5C6B7F" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Retry Failed from Log& reloads unresolved entries and tries again.</text>
+</svg>

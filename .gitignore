@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+
+# Recovery output / local junk
+SectorPulse_logs/
+*.log
+htmlcov/
+.coverage
+.pytest_cache/
+.mypy_cache/
+
+# Packaging
+*.spec

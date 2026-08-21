@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="160" viewBox="0 0 1100 160">
+  <rect width="1100" height="160" rx="14" fill="#0B0F14"/>
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
+    <rect x="24" y="36" width="240" height="88" rx="12" fill="#121821" stroke="#2EE6A6"/>
+    <circle cx="56" cy="80" r="10" fill="#2EE6A6"/>
+    <text x="78" y="72" fill="#2EE6A6" font-size="16" font-weight="700">OK</text>
+    <text x="78" y="96" fill="#8B9BB0" font-size="13">Fully readable / restored</text>
+
+    <rect x="288" y="36" width="240" height="88" rx="12" fill="#121821" stroke="#F0B429"/>
+    <circle cx="320" cy="80" r="10" fill="#F0B429"/>
+    <text x="342" y="72" fill="#F0B429" font-size="16" font-weight="700">PARTIAL</text>
+    <text x="342" y="96" fill="#8B9BB0" font-size="13">Zero-padded bad sectors</text>
+
+    <rect x="552" y="36" width="240" height="88" rx="12" fill="#121821" stroke="#FF5C7A"/>
+    <circle cx="584" cy="80" r="10" fill="#FF5C7A"/>
+    <text x="606" y="72" fill="#FF5C7A" font-size="16" font-weight="700">BAD</text>
+    <text x="606" y="96" fill="#8B9BB0" font-size="13">Hard I/O / scan failure</text>
+
+    <rect x="816" y="36" width="260" height="88" rx="12" fill="#121821" stroke="#4DA3FF"/>
+    <circle cx="848" cy="80" r="10" fill="#4DA3FF"/>
+    <text x="870" y="72" fill="#4DA3FF" font-size="16" font-weight="700">RAW NTFS</text>
+    <text x="870" y="96" fill="#8B9BB0" font-size="13">MFT bypass mode</text>
+  </g>
+</svg>
