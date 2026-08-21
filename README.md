@@ -5,6 +5,14 @@
   <img src="docs/images/banner_light.svg" alt="SectorPulse — resilient file recovery from damaged Windows drives" height="170">
 </picture>
 
+<p>
+  <img src="docs/images/icon.svg" alt="" height="28" />
+  &nbsp;<strong>SectorPulse — resilient file recovery from damaged Windows drives</strong>
+</p>
+
+
+
+
 </div>
 
 [![Windows](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D4.svg?logo=windows&logoColor=white)](#-requirements)
@@ -20,26 +28,26 @@ Plug the dying drive in over USB. SectorPulse detects the letter (even when size
 
 <img src="docs/images/divider.svg" width="100%" alt="">
 
-## Table of Contents
+## <img src="docs/images/icon_toc.svg" height="22" alt="" /> Table of Contents
 
-- [🎯 Why This Exists](#-why-this-exists)
-- [🧠 How It Works](#-how-it-works)
-- [✨ Features](#-features)
-- [✅ What It Can Do](#-what-it-can-do)
-- [🚫 What It Cannot Do](#-what-it-cannot-do)
-- [📋 Requirements](#-requirements)
-- [⚡ Quick Start](#-quick-start)
-- [🖥️ Usage Walkthrough](#-usage-walkthrough)
-- [🔧 Engineering Notes](#-engineering-notes)
-- [📁 Project Structure](#-project-structure)
-- [⚙️ Configuration Knobs](#-configuration-knobs)
-- [⚠️ Limitations & Responsible Use](#-limitations--responsible-use)
-- [❤️ Contributing](#-contributing)
-- [📄 License](#-license)
+- [<img src="docs/images/icon_why.svg" height="16" alt="" /> Why This Exists](#why-this-exists)
+- [<img src="docs/images/icon_how.svg" height="16" alt="" /> How It Works](#how-it-works)
+- [<img src="docs/images/icon_features.svg" height="16" alt="" /> Features](#features)
+- [<img src="docs/images/icon_can.svg" height="16" alt="" /> What It Can Do](#what-it-can-do)
+- [<img src="docs/images/icon_cannot.svg" height="16" alt="" /> What It Cannot Do](#what-it-cannot-do)
+- [<img src="docs/images/icon_req.svg" height="16" alt="" /> Requirements](#requirements)
+- [<img src="docs/images/icon_start.svg" height="16" alt="" /> Quick Start](#quick-start)
+- [<img src="docs/images/icon_usage.svg" height="16" alt="" /> Usage Walkthrough](#usage-walkthrough)
+- [<img src="docs/images/icon_eng.svg" height="16" alt="" /> Engineering Notes](#engineering-notes)
+- [<img src="docs/images/icon_structure.svg" height="16" alt="" /> Project Structure](#project-structure)
+- [<img src="docs/images/icon_config.svg" height="16" alt="" /> Configuration Knobs](#configuration-knobs)
+- [<img src="docs/images/icon_warn.svg" height="16" alt="" /> Limitations & Responsible Use](#limitations--responsible-use)
+- [<img src="docs/images/icon_heart.svg" height="16" alt="" /> Contributing](#contributing)
+- [<img src="docs/images/icon_license.svg" height="16" alt="" /> License](#license)
 
 <br>
 
-## 🎯 Why This Exists
+## <img src="docs/images/icon_why.svg" height="28" alt="" /> Why This Exists
 
 Dying disks don't fail politely. Explorer hangs on one bad file, `robocopy` aborts a tree, and Windows keeps retrying the same unreadable sector until the enclosure drops offline. SectorPulse was built for that ugliness: **USB-attached NTFS volumes with bad sectors, crashy metadata, and files that hang forever on a normal copy**.
 
@@ -47,7 +55,7 @@ The goal is simple — get as many bytes as possible onto a healthy disk, keep a
 
 <br>
 
-## 🧠 How It Works
+## <img src="docs/images/icon_how.svg" height="28" alt="" /> How It Works
 
 <img src="docs/images/architecture.svg" alt="SectorPulse architecture: detect, scan, restore, repair + journal — with Win32 and raw NTFS paths" width="100%">
 
@@ -65,78 +73,78 @@ SectorPulse is a four-stage pipeline with a dual scan/restore path:
 
 <br>
 
-## ✨ Features
+## <img src="docs/images/icon_features.svg" height="28" alt="" /> Features
 
-### 🔌 Hot-plug drive detection
+### <img src="docs/images/icon_usb.svg" height="22" alt="" /> Hot-plug drive detection
 Lists Removable and Fixed USB volumes as they appear. Damaged volumes that throw on size queries still show up as *unreadable* so you can scan them in raw mode. Network, optical, and RAM drives are filtered out.
 
-### 🗺️ Error-tolerant file map
+### <img src="docs/images/icon_map.svg" height="22" alt="" /> Error-tolerant file map
 Continues after `scandir` / `stat` / probe failures. Each node is tagged `ok` · `partial` · `unreadable`. Lazy tree expand keeps large maps snappy. Cancel mid-scan anytime.
 
 <img src="docs/images/feature_status.svg" alt="Status legend: OK, PARTIAL, BAD, RAW NTFS" width="100%">
 
-### 💾 Dual recovery paths
+### <img src="docs/images/icon_dual.svg" height="22" alt="" /> Dual recovery paths
 | Mode | When | How |
 |------|------|-----|
 | **Win32 path** | Volume still lists folders | Chunked open/seek/read + zero-fill |
 | **Raw NTFS** | Path API already dead | `\\.\X:` boot + MFT + data runs + sector fallback |
 
-### 🩹 Bad-sector skip (classic salvage behavior)
+### <img src="docs/images/icon_badsector.svg" height="22" alt="" /> Bad-sector skip (classic salvage behavior)
 On repeated I/O errors, SectorPulse pads a hole and keeps going instead of aborting the file. Partials are marked amber — still often useful for photos, docs, and many media files.
 
-### ⏱️ Hang protection
+### <img src="docs/images/icon_hang.svg" height="22" alt="" /> Hang protection
 Per-file timeouts (roughly 60–900s by size). Timed-out destinations are removed and logged as `timeout` so a later retry starts clean.
 
-### 🎬 PDF & video repair
+### <img src="docs/images/icon_features.svg" height="22" alt="" /> PDF & video repair
 <img src="docs/images/feature_repair.svg" alt="PDF carve + pypdf rewrite; video ffmpeg remux and AVI idx1 rebuild" width="100%">
 
 - **PDF** — carve `%PDF`…`%%EOF`, then timed `pypdf` rewrite in a child process (skip unreadable pages; hard timeout ~12s).
 - **Video** — prefer `ffmpeg` remux (`-c copy`, `+faststart` for MP4/MOV); pure-Python **AVI `idx1` rebuild** if ffmpeg is unavailable. Covers `.mp4` `.m4v` `.mov` `.mkv` `.avi` `.wmv` `.webm` `.mpg` `.mpeg` `.flv` `.ts` `.m2ts` `.3gp`.
 
-### 📓 Resume journals
+### <img src="docs/images/icon_structure.svg" height="22" alt="" /> Resume journals
 <img src="docs/images/feature_journal.svg" alt="SectorPulse_logs journal files" width="100%">
 
 Skip already-restored files (matching size). Force-retry broken PDFs/videos left from earlier partial runs. **Retry Failed from Log…** reloads unresolved `failed` / `timeout` / `partial` entries.
 
-### 🗑️ Delete from drive (optional, destructive)
+### <img src="docs/images/icon_delete.svg" height="22" alt="" /> Delete from drive (optional, destructive)
 Filesystem delete when paths work; raw MFT in-use clear in raw mode (Admin often required). Protects `$MFT`, `$LogFile`, `$Bitmap`, `System Volume Information`, and other `$` metadata.
 
-### 🖥️ Dark recovery console
+### <img src="docs/images/icon_ui.svg" height="22" alt="" /> Dark recovery console
 CustomTkinter UI — graphite + signal teal. Drive list, file map with health column, mark/select-all, activity log, progress bar, open restored file, reveal in Explorer, selection detail panel.
 
 <br>
 
-## ✅ What It Can Do
+## <img src="docs/images/icon_can.svg" height="28" alt="" /> What It Can Do
 
-- Recover files from dying USB / external **NTFS** disks that Explorer cannot copy
-- Keep going when individual sectors are bad (partial files with zero gaps)
-- Map folders when Win32 listing fails, via raw MFT
-- Salvage resident + non-resident NTFS data (runlists, sparse holes)
-- Follow `$ATTRIBUTE_LIST` extension records when they are still in the MFT cache
-- Place orphaned MFT entries under `_orphaned`
-- Auto-repair many recovered PDFs and videos enough to open in a reader/player
-- Resume large jobs and retry failures from the journal
-- Time out hung files instead of freezing forever
-
-<br>
-
-## 🚫 What It Cannot Do
-
-- **Not a full disk imager** — selected files/folders, not a forensic `dd` of the whole device
-- **Not for non-Windows hosts** — drive letters + WinAPI
-- **Not for the system drive as a target** — intentionally ignored
-- **Not magic undelete** for fully overwritten data
-- **Limited / no support** for exFAT, FAT32, ReFS, locked BitLocker, APFS, ext4 — raw path is **NTFS-only**
-- **Encrypted / compressed** NTFS streams may be incomplete without Windows decrypting them
-- **ADS / hard links / reparse points** are not first-class targets
-- Heavily fragmented `$ATTRIBUTE_LIST` extents missing from the MFT cache → marked incomplete
-- **Does not guarantee** playable/openable files — zero-padded holes can still break codecs, Office docs, archives
-- **Not a substitute** for a professional lab on mechanically failing platters (clicking drive → clone first if you can)
-- **Delete is destructive** — raw delete clears MFT in-use flags; it is not a secure wipe
+- <img src="docs/images/icon_can.svg" height="14" alt="" /> Recover files from dying USB / external **NTFS** disks that Explorer cannot copy
+- <img src="docs/images/icon_can.svg" height="14" alt="" /> Keep going when individual sectors are bad (partial files with zero gaps)
+- <img src="docs/images/icon_can.svg" height="14" alt="" /> Map folders when Win32 listing fails, via raw MFT
+- <img src="docs/images/icon_can.svg" height="14" alt="" /> Salvage resident + non-resident NTFS data (runlists, sparse holes)
+- <img src="docs/images/icon_can.svg" height="14" alt="" /> Follow `$ATTRIBUTE_LIST` extension records when they are still in the MFT cache
+- <img src="docs/images/icon_can.svg" height="14" alt="" /> Place orphaned MFT entries under `_orphaned`
+- <img src="docs/images/icon_can.svg" height="14" alt="" /> Auto-repair many recovered PDFs and videos enough to open in a reader/player
+- <img src="docs/images/icon_can.svg" height="14" alt="" /> Resume large jobs and retry failures from the journal
+- <img src="docs/images/icon_can.svg" height="14" alt="" /> Time out hung files instead of freezing forever
 
 <br>
 
-## 📋 Requirements
+## <img src="docs/images/icon_cannot.svg" height="28" alt="" /> What It Cannot Do
+
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Not a full disk imager** — selected files/folders, not a forensic `dd` of the whole device
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Not for non-Windows hosts** — drive letters + WinAPI
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Not for the system drive as a target** — intentionally ignored
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Not magic undelete** for fully overwritten data
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Limited / no support** for exFAT, FAT32, ReFS, locked BitLocker, APFS, ext4 — raw path is **NTFS-only**
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Encrypted / compressed** NTFS streams may be incomplete without Windows decrypting them
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **ADS / hard links / reparse points** are not first-class targets
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> Heavily fragmented `$ATTRIBUTE_LIST` extents missing from the MFT cache → marked incomplete
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Does not guarantee** playable/openable files — zero-padded holes can still break codecs, Office docs, archives
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Not a substitute** for a professional lab on mechanically failing platters (clicking drive → clone first if you can)
+- <img src="docs/images/icon_cannot.svg" height="14" alt="" /> **Delete is destructive** — raw delete clears MFT in-use flags; it is not a secure wipe
+
+<br>
+
+## <img src="docs/images/icon_req.svg" height="28" alt="" /> Requirements
 
 | Requirement | Why |
 |---|---|
@@ -159,7 +167,7 @@ pypdf>=4.0.0
 
 <br>
 
-## ⚡ Quick Start
+## <img src="docs/images/icon_start.svg" height="28" alt="" /> Quick Start
 
 ```bat
 git clone https://github.com/ravirajg/sectorpulse.git
@@ -174,7 +182,7 @@ Or double-click **`run.bat`** — it installs deps quietly, then launches.
 
 <br>
 
-## 🖥️ Usage Walkthrough
+## <img src="docs/images/icon_usage.svg" height="28" alt="" /> Usage Walkthrough
 
 1. Connect the **damaged** drive over USB (do not use it as the only copy destination).
 2. Launch SectorPulse — wait until the volume appears under **Detected Volumes**.
@@ -186,7 +194,7 @@ Or double-click **`run.bat`** — it installs deps quietly, then launches.
 8. If some files timed out → **Retry Failed from Log…** later.
 9. Only after you have verified copies: **Delete from Drive** if you need space (destructive).
 
-### Safety checklist
+### <img src="docs/images/icon_safety.svg" height="22" alt="" /> Safety checklist
 
 - Always restore **off** the dying disk.
 - Prefer cloning first if the drive is clicking or dropping offline.
@@ -195,7 +203,7 @@ Or double-click **`run.bat`** — it installs deps quietly, then launches.
 
 <br>
 
-## 🔧 Engineering Notes
+## <img src="docs/images/icon_eng.svg" height="28" alt="" /> Engineering Notes
 
 A few parts that were interesting to build:
 
@@ -208,7 +216,7 @@ Core modules: [`app/core/ntfs_raw.py`](app/core/ntfs_raw.py) · [`app/core/recov
 
 <br>
 
-## 📁 Project Structure
+## <img src="docs/images/icon_structure.svg" height="28" alt="" /> Project Structure
 
 ```
 Recovery/
@@ -234,7 +242,7 @@ Recovery/
 
 <br>
 
-## ⚙️ Configuration Knobs
+## <img src="docs/images/icon_config.svg" height="28" alt="" /> Configuration Knobs
 
 In `RecoveryEngine` ([`app/core/recovery.py`](app/core/recovery.py)):
 
@@ -251,7 +259,7 @@ Theme tokens live in [`app/ui/theme.py`](app/ui/theme.py) (`#0B0F14` graphite ·
 
 <br>
 
-## ⚠️ Limitations & Responsible Use
+## <img src="docs/images/icon_warn.svg" height="28" alt="" /> Limitations & Responsible Use
 
 - **Your data, your disk.** Only recover media you own or are authorized to access.
 - **Lossy by nature.** Bad sectors mean missing bytes. Always verify restored files before wiping the source.
@@ -261,7 +269,7 @@ Theme tokens live in [`app/ui/theme.py`](app/ui/theme.py) (`#0B0F14` graphite ·
 
 <br>
 
-## ❤️ Contributing
+## <img src="docs/images/icon_heart.svg" height="28" alt="" /> Contributing
 
 Issues and PRs welcome. High-value areas:
 
@@ -275,13 +283,15 @@ Please do **not** open issues asking for help recovering data you do not own.
 
 <br>
 
-## 📄 License
+## <img src="docs/images/icon_license.svg" height="28" alt="" /> License
 
-[MIT](LICENSE) — free to use, modify, and distribute. Add a `LICENSE` file when you publish the repo.
+[MIT](LICENSE) — free to use, modify, and distribute.
 
 <img src="docs/images/divider.svg" width="100%" alt="">
 
 <div align="center">
+
+<img src="docs/images/icon.svg" height="36" alt="" />
 
 **SECTORPULSE** · resilient recovery · bad-sector skip · raw NTFS · resume journals
 
