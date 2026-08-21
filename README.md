@@ -1,9 +1,11 @@
 <div align="center">
 
-<p>
-  <img src="docs/images/icon.svg" alt="" height="28" />
-  &nbsp;<strong>SectorPulse — resilient file recovery from damaged Windows drives</strong>
-</p>
+<h1>
+  <img src="docs/images/icon.svg" alt="" height="52" />
+  SectorPulse
+</h1>
+
+<p><em>Resilient file recovery from damaged Windows drives</em></p>
 
 
 
